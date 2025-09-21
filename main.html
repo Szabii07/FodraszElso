@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Szalon – Fodrászat | Név</title>
+  <meta name="description" content="Modern, reszponzív weboldal fodrászoknak — online időpontfoglalás, szolgáltatások, galéria és kapcsolat." />
+  <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+  <style>
+    /* Reset + egyszerű, modern stílus */
+    :root{--bg:#f7f7f9;--card:#ffffff;--accent:#b36bff;--muted:#6b6b6b;--radius:14px}
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:var(--bg); color:#111}
+    a{color:inherit;text-decoration:none}
+    header{background:linear-gradient(90deg, rgba(179,107,255,0.08), rgba(179,107,255,0.03));backdrop-filter: blur(4px);}
+    .container{max-width:1100px;margin:0 auto;padding:24px}
+
+    /* Nav */
+    .nav{display:flex;gap:16px;align-items:center;justify-content:space-between}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#ff9aa8);display:flex;align-items:center;justify-content:center;color:white;font-weight:700}
+    nav ul{display:flex;gap:12px;align-items:center;margin:0;padding:0;list-style:none}
+    .cta{background:var(--accent);color:white;padding:8px 14px;border-radius:10px}
+    .mobile-toggle{display:none}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;padding:48px 0}
+    .hero h1{font-size:34px;margin:0 0 10px}
+    .lead{color:var(--muted);margin-bottom:18px}
+    .features{display:flex;gap:12px;margin-top:18px}
+    .feature{background:var(--card);padding:12px;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.04);font-size:14px}
+
+    /* Card */
+    .card{background:var(--card);padding:18px;border-radius:16px;box-shadow:0 6px 30px rgba(11,12,16,0.04)}
+
+    /* Services */
+    .services{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0}
+    .service{padding:14px;border-radius:12px}
+    .price{font-weight:700}
+
+    /* Gallery */
+    .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+    .gallery img{width:100%;height:100%;object-fit:cover;border-radius:10px}
+
+    /* Testimonials */
+    .testimonials{display:flex;gap:12px;overflow:auto;padding-bottom:8px}
+    .testi{min-width:260px}
+
+    /* Footer */
+    footer{padding:32px 0;color:var(--muted)}
+
+    /* Responsive */
+    @media(max-width:980px){
+      .hero{grid-template-columns:1fr;}
+      .services{grid-template-columns:repeat(2,1fr)}
+      .gallery{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:640px){
+      nav ul{display:none}
+      .mobile-toggle{display:block}
+      .services{grid-template-columns:1fr}
+      .gallery{grid-template-columns:1fr}
+    }
+
+    /* small helpers */
+    .muted{color:var(--muted)}
+    input,select,textarea{font:inherit}
+    .form-row{display:flex;gap:8px}
+    .form-row > *{flex:1}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;background:var(--accent);color:white;border:none;cursor:pointer}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo">S</div>
+        <div>
+          <div style="font-weight:700">Szalon Név</div>
+          <div class="muted" style="font-size:12px">Fodrászat • Budapest</div>
+        </div>
+      </div>
+
+      <nav>
+        <ul>
+          <li><a href="#services">Szolgáltatások</a></li>
+          <li><a href="#gal">Galéria</a></li>
+          <li><a href="#testi">Vélemények</a></li>
+          <li><a href="#contact">Kapcsolat</a></li>
+        </ul>
+      </nav>
+
+      <div style="display:flex;gap:10px;align-items:center">
+        <div class="muted" style="font-size:13px">Nyitva ma: 9:00–18:00</div>
+        <a class="cta" href="#booking">Időpont foglalás</a>
+        <button class="mobile-toggle" aria-label="menu" onclick="toggleNav()">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <h1>Szép frizurák, személyre szabott figyelem</h1>
+        <p class="lead">Professzionális fodrász, modern technikák és barátságos környezet. Vágás, festés, balayage és kezelés — nálunk jól érzed magad.</p>
+        <div class="features">
+          <div class="feature">Tapasztalt fodrászok</div>
+          <div class="feature">Online foglalás</div>
+          <div class="feature">Személyre szabott tanácsadás</div>
+        </div>
+
+        <div style="margin-top:26px;display:flex;gap:12px;align-items:center">
+          <a class="btn" href="#booking">Foglalj most</a>
+          <a href="#contact" style="padding:10px 14px;border-radius:10px;background:transparent;border:1px solid rgba(0,0,0,0.06)">Elérhetőség</a>
+        </div>
+      </div>
+
+      <aside class="card" id="booking">
+        <h3 style="margin-top:0">Gyors időpontfoglalás</h3>
+        <form id="bookingForm">
+          <div style="margin-bottom:8px">Kiválasztott szolgáltatás</div>
+          <select id="serviceSelect">
+            <option value="Vágás">Vágás — 6 000 Ft</option>
+            <option value="Női festés">Női festés — 12 000 Ft</option>
+            <option value="Balayage">Balayage — 25 000 Ft</option>
+            <option value="Férfi szegély">Férfi szegély — 2 500 Ft</option>
+          </select>
+
+          <div class="form-row" style="margin-top:10px">
+            <input type="text" id="name" placeholder="Név" required />
+            <input type="tel" id="phone" placeholder="Telefonszám" required />
+          </div>
+
+          <div style="margin-top:10px">
+            <input type="date" id="date" required />
+            <input type="time" id="time" required />
+          </div>
+
+          <label style="display:flex;gap:8px;align-items:center;margin-top:10px"><input type="checkbox" id="gdpr" required /> Hozzájárulok az adataim kezeléséhez (GDPR)</label>
+
+          <div style="margin-top:12px;display:flex;gap:8px">
+            <button class="btn" type="submit">Foglalás</button>
+            <button type="button" onclick="saveDraft()" style="padding:10px;border-radius:10px;border:1px solid #ddd;background:transparent">Mentés</button>
+          </div>
+
+          <div id="bookingMsg" class="muted" style="margin-top:10px;font-size:14px"></div>
+        </form>
+
+        <hr style="margin:16px 0" />
+        <div style="font-size:13px;color:var(--muted)">Nyitva: H–P 9:00–18:00 · Szombat: 9:00–13:00</div>
+      </aside>
+    </section>
+
+    <section id="services">
+      <h2>Szolgáltatások</h2>
+      <p class="muted">Válassz a népszerű szolgáltatások közül — itt kérheted a pontos árajánlatot is.</p>
+      <div class="services">
+        <div class="card service">
+          <div style="font-weight:700">Női vágás</div>
+          <div class="muted">Konzultáció + vágás</div>
+          <div class="price">6 000 Ft-tól</div>
+        </div>
+        <div class="card service">
+          <div style="font-weight:700">Festés</div>
+          <div class="muted">Rövid/közepes/hosszú haj</div>
+          <div class="price">12 000 Ft-tól</div>
+        </div>
+        <div class="card service">
+          <div style="font-weight:700">Balayage</div>
+          <div class="muted">Modern melírozás, professzionális kezelés</div>
+          <div class="price">25 000 Ft-tól</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="gal">
+      <h2>Galéria</h2>
+      <div class="gallery">
+        <img src="https://picsum.photos/seed/hair1/800/800" alt="frizura 1">
+        <img src="https://picsum.photos/seed/hair2/800/800" alt="frizura 2">
+        <img src="https://picsum.photos/seed/hair3/800/800" alt="frizura 3">
+        <img src="https://picsum.photos/seed/hair4/800/800" alt="frizura 4">
+      </div>
+    </section>
+
+    <section id="testi">
+      <h2>Vélemények</h2>
+      <div class="testimonials">
+        <div class="card testi">
+          <div style="font-weight:700">Anna</div>
+          <div class="muted">"Szuper vágás, mindig elégedett vagyok."</div>
+        </div>
+        <div class="card testi">
+          <div style="font-weight:700">Miklós</div>
+          <div class="muted">"Gyors és precíz munkájuk van, ajánlom."</div>
+        </div>
+        <div class="card testi">
+          <div style="font-weight:700">Réka</div>
+          <div class="muted">"Barátságos stúdió, szép végeredmény."</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" style="margin-top:20px">
+      <h2>Kapcsolat</h2>
+      <div style="display:grid;grid-template-columns:1fr 360px;gap:18px">
+        <div class="card">
+          <p class="muted">Cím: Budapest, Példa utca 12.</p>
+          <p class="muted">Telefon: +36 20 123 4567</p>
+          <p class="muted">E-mail: kontakt@szalon.hu</p>
+
+          <h4 style="margin-top:12px">Nyitvatartás</h4>
+          <p class="muted">H–P: 9:00–18:00<br>Sz: 9:00–13:00<br>V: zárva</p>
+
+          <div style="margin-top:14px">
+            <iframe title="Térkép" src="https://www.google.com/maps?q=budapest&output=embed" style="width:100%;height:160px;border:0;border-radius:10px"></iframe>
+          </div>
+        </div>
+
+        <aside class="card">
+          <h4>Üzenet küldése</h4>
+          <form id="contactForm">
+            <input type="text" id="cname" placeholder="Név" required style="width:100%;margin-bottom:8px;padding:8px;border-radius:8px;border:1px solid #eee" />
+            <input type="email" id="cemail" placeholder="E-mail" required style="width:100%;margin-bottom:8px;padding:8px;border-radius:8px;border:1px solid #eee" />
+            <textarea id="cmsg" placeholder="Üzenet" rows="4" style="width:100%;padding:8px;border-radius:8px;border:1px solid #eee"></textarea>
+            <label style="display:flex;gap:8px;align-items:center;margin-top:8px"><input type="checkbox" id="cgdpr" required /> Hozzájárulok az adatkezeléshez</label>
+            <div style="margin-top:10px"><button class="btn" type="submit">Küldés</button></div>
+            <div id="contactMsg" class="muted" style="margin-top:8px;font-size:14px"></div>
+          </form>
+        </aside>
+      </div>
+    </section>
+
+    <footer>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+        <div class="muted">© <span id="year"></span> Szalon Név — Minden jog fenntartva</div>
+        <div class="muted">Készült egyszerű, reszponzív sablonnal</div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // év automatikusan
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // mobil menü (egyszerű)
+    function toggleNav(){
+      const nav = document.querySelector('nav ul');
+      nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+      nav.style.flexDirection = 'column';
+      nav.style.background = 'white';
+      nav.style.position = 'absolute';
+      nav.style.right = '24px';
+      nav.style.top = '70px';
+      nav.style.padding = '12px';
+      nav.style.borderRadius = '10px';
+      nav.style.boxShadow = '0 10px 30px rgba(0,0,0,0.08)';
+    }
+
+    // Foglalás kezelése (demo): bevitel validálás, mentés localStorage-be (vagy küldés szerverre)
+    const bookingForm = document.getElementById('bookingForm');
+    bookingForm.addEventListener('submit', function(e){
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const date = document.getElementById('date').value;
+      const time = document.getElementById('time').value;
+      const service = document.getElementById('serviceSelect').value;
+      if(!name||!phone||!date||!time||!document.getElementById('gdpr').checked){
+        document.getElementById('bookingMsg').textContent = 'Kérlek töltsd ki a kötelező mezőket és fogadd el az adatkezelést.';
+        return;
+      }
+      // példa mentés (valódi telepítésnél küldd el szerverre vagy 3rd-party foglaló rendszerbe)
+      const appointments = JSON.parse(localStorage.getItem('appointments')||'[]');
+      appointments.push({name,phone,date,time,service,created:new Date().toISOString()});
+      localStorage.setItem('appointments', JSON.stringify(appointments));
+      document.getElementById('bookingMsg').textContent = 'Köszönjük! Foglalásod rögzítve (demó). Hamarosan visszahívunk.';
+      bookingForm.reset();
+    });
+
+    function saveDraft(){
+      const draft = {
+        name:document.getElementById('name').value,
+        phone:document.getElementById('phone').value,
+        date:document.getElementById('date').value,
+        time:document.getElementById('time').value,
+        service:document.getElementById('serviceSelect').value
+      };
+      localStorage.setItem('bookingDraft', JSON.stringify(draft));
+      alert('Mentve a böngészőbe. Folytathatod később.');
+    }
+
+    // Kapcsolat űrlap (demo)
+    document.getElementById('contactForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      if(!document.getElementById('cgdpr').checked){
+        document.getElementById('contactMsg').textContent = 'Kérlek fogadd el az adatkezelést.'; return;
+      }
+      const messages = JSON.parse(localStorage.getItem('messages')||'[]');
+      messages.push({name:document.getElementById('cname').value, email:document.getElementById('cemail').value, msg:document.getElementById('cmsg').value, created:new Date().toISOString()});
+      localStorage.setItem('messages', JSON.stringify(messages));
+      document.getElementById('contactMsg').textContent = 'Üzeneted elküldve (demó). Köszönjük!';
+      this.reset();
+    });
+
+    // Több szolgáltató bővítés — egyszerű példa: lista a localStorage-ben
+    // A tényleges multi-provider rendszerhez érdemes backend (adatbázis) + admin felület.
+  </script>
+</body>
+</html>
