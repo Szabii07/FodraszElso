@@ -1,267 +1,175 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Őszi Szalon – Fodrászat</title>
-  <meta name="description" content="Őszi hangulatú fodrász weboldal – online időpontfoglalás, szolgáltatások, galéria, kapcsolat.">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Őszi Szalon – Fodrászat</title>
+<meta name="description" content="Őszi hangulatú fodrász weboldal – online időpontfoglalás, szolgáltatások, galéria, vélemények és kapcsolat.">
+<style>
+  :root{
+    --bg:#f9f3f0;
+    --card:#fff8f2;
+    --accent:#c96a2b;
+    --accent-dark:#9f4a15;
+    --muted:#6b4b3b;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',sans-serif;}
+  body{background:var(--bg);color:#333;}
+  a{color:inherit;text-decoration:none;}
+  .container{max-width:1100px;margin:0 auto;padding:24px;}
 
-  <style>
-    /* Root colors - őszi barna/narancs paletta */
-    :root {
-      --bg: #fdf6f0;
-      --card: #fff7f0;
-      --accent: #d2691e; /* Chocolate/orange */
-      --accent-dark: #a0522d;
-      --text: #3e2c2a;
-      --muted: #7a5a50;
-      --radius: 16px;
-    }
+  header{background:linear-gradient(90deg, rgba(201,106,43,0.08), rgba(201,106,43,0.03));backdrop-filter: blur(4px);}
+  .nav{display:flex;justify-content:space-between;align-items:center;gap:16px;}
+  .logo{width:48px;height:48px;border-radius:12px;background:var(--accent);color:white;font-weight:700;display:flex;align-items:center;justify-content:center;}
+  nav ul{display:flex;gap:12px;list-style:none;}
+  .cta{background:var(--accent);color:white;padding:8px 14px;border-radius:10px;}
+  .mobile-toggle{display:none;}
 
-    *{box-sizing:border-box;}
-    body{margin:0;font-family:'Roboto',sans-serif;background:var(--bg);color:var(--text);}
-    a{text-decoration:none;color:inherit;}
-    h1,h2,h3,h4{margin:0;}
-    h1,h2,h3{font-family:'Playfair Display',serif;color:var(--accent-dark);}
-    .container{max-width:1100px;margin:0 auto;padding:24px;}
+  .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;padding:48px 0;}
+  .hero h1{font-size:34px;margin-bottom:10px;color:var(--accent-dark);}
+  .lead{color:var(--muted);margin-bottom:18px;}
+  .features{display:flex;gap:12px;margin-top:18px;}
+  .feature{background:var(--card);padding:12px;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.05);font-size:14px;}
 
-    /* Header / Nav */
-    header{
-      background:linear-gradient(120deg, #fce8d8, #f5d6b0);
-      padding:20px 0;
-      box-shadow:0 4px 8px rgba(0,0,0,0.08);
-    }
-    .nav{display:flex;justify-content:space-between;align-items:center;gap:16px;}
-    .logo{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--accent-dark);}
-    nav ul{display:flex;gap:16px;list-style:none;margin:0;padding:0;}
-    nav li a{font-weight:500;padding:8px 12px;border-radius:8px;transition:0.3s;}
-    nav li a:hover{background:var(--accent-dark);color:#fff;}
-    .cta{background:var(--accent);color:#fff;padding:10px 18px;border-radius:12px;font-weight:500;transition:0.3s;}
-    .cta:hover{background:var(--accent-dark);}
+  .card{background:var(--card);padding:18px;border-radius:var(--radius);box-shadow:0 6px 30px rgba(0,0,0,0.05);}
+  .services{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0;}
+  .service{padding:14px;border-radius:12px;}
+  .price{font-weight:700;color:var(--accent-dark);}
+  .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:28px;}
+  .gallery img{width:100%;height:100%;object-fit:cover;border-radius:10px;}
+  .testimonials{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;margin-bottom:28px;}
+  .testi{min-width:260px;}
 
-    /* Hero */
-    .hero{display:flex;flex-wrap:wrap;align-items:center;gap:32px;margin-top:24px;}
-    .hero-left{flex:1;min-width:280px;}
-    .hero h1{font-size:42px;margin-bottom:12px;}
-    .hero p{color:var(--muted);font-size:18px;line-height:1.5;}
-    .features{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;}
-    .feature{background:var(--card);padding:12px 16px;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.08);font-size:14px;font-weight:500;}
+  footer{padding:32px 0;color:var(--muted);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
 
-    /* Hero Booking Card */
-    .hero-right{flex:0 0 380px;background:var(--card);padding:24px;border-radius:var(--radius);box-shadow:0 8px 28px rgba(0,0,0,0.1);}
-    .hero-right h3{margin-bottom:16px;color:var(--accent-dark);}
-    .hero-right input, .hero-right select{width:100%;padding:10px;margin-bottom:12px;border-radius:10px;border:1px solid #e0c9b0;font-family:inherit;}
-    .hero-right button{width:100%;padding:12px;background:var(--accent);color:#fff;border:none;border-radius:12px;font-weight:500;cursor:pointer;transition:0.3s;}
-    .hero-right button:hover{background:var(--accent-dark);}
-    .gdpr{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);}
-    .booking-msg{font-size:14px;color:var(--accent-dark);margin-top:8px;}
+  input,select,textarea,button{font:inherit}
+  input,select,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid #ddd;margin-top:8px;}
+  button{cursor:pointer;background:var(--accent);color:white;border:none;padding:10px 14px;border-radius:10px;}
+  button:hover{background:var(--accent-dark);}
+  label{display:flex;gap:8px;align-items:center;margin-top:8px;font-size:14px;}
 
-    /* Sections */
-    section{margin-top:48px;}
-    section h2{margin-bottom:16px;font-size:32px;}
-    .services{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
-    .service{background:var(--card);padding:16px;border-radius:var(--radius);box-shadow:0 6px 20px rgba(0,0,0,0.08);}
-    .service .price{margin-top:8px;font-weight:700;color:var(--accent-dark);}
-    
-    .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;}
-    .gallery img{width:100%;border-radius:12px;object-fit:cover;height:180px;}
-
-    .testimonials{display:flex;gap:16px;overflow-x:auto;padding-bottom:12px;}
-    .testimonial{min-width:260px;background:var(--card);padding:16px;border-radius:var(--radius);box-shadow:0 6px 20px rgba(0,0,0,0.08);}
-    .testimonial .author{font-weight:700;margin-bottom:4px;}
-
-    /* Contact */
-    #contact .contact-grid{display:grid;grid-template-columns:1fr 380px;gap:24px;}
-    #contact input, #contact textarea{width:100%;padding:10px;margin-bottom:12px;border-radius:10px;border:1px solid #e0c9b0;font-family:inherit;}
-    #contact button{padding:12px;background:var(--accent);color:#fff;border:none;border-radius:12px;cursor:pointer;transition:0.3s;}
-    #contact button:hover{background:var(--accent-dark);}
-
-    /* Footer */
-    footer{padding:32px 0;text-align:center;color:var(--muted);font-size:14px;margin-top:48px;}
-
-    /* Responsive */
-    @media(max-width:768px){
-      .hero{flex-direction:column;}
-      .hero-right{flex:1;}
-      #contact .contact-grid{grid-template-columns:1fr;}
-    }
-  </style>
+  @media(max-width:980px){
+    .hero{grid-template-columns:1fr;}
+    .services{grid-template-columns:repeat(2,1fr);}
+    .gallery{grid-template-columns:repeat(2,1fr);}
+  }
+  @media(max-width:640px){
+    nav ul{display:none;}
+    .mobile-toggle{display:block;}
+    .services{grid-template-columns:1fr;}
+    .gallery{grid-template-columns:1fr;}
+  }
+</style>
 </head>
 <body>
-  <header>
-    <div class="container nav">
-      <div class="logo">Őszi Szalon</div>
-      <nav>
-        <ul>
-          <li><a href="#services">Szolgáltatások</a></li>
-          <li><a href="#gallery">Galéria</a></li>
-          <li><a href="#testimonials">Vélemények</a></li>
-          <li><a href="#contact">Kapcsolat</a></li>
-        </ul>
-      </nav>
-      <a class="cta" href="#booking">Időpont foglalás</a>
+<header>
+  <div class="container nav">
+    <div class="logo">S</div>
+    <nav>
+      <ul>
+        <li><a href="#services">Szolgáltatások</a></li>
+        <li><a href="#gal">Galéria</a></li>
+        <li><a href="#testi">Vélemények</a></li>
+        <li><a href="#booking">Foglalás</a></li>
+        <li><a href="#contact">Kapcsolat</a></li>
+      </ul>
+    </nav>
+    <a class="cta" href="#booking">Időpont foglalás</a>
+    <button class="mobile-toggle" onclick="toggleNav()">☰</button>
+  </div>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <div>
+      <h1>Őszi frizurák, meleg hangulat</h1>
+      <p class="lead">Professzionális fodrász, modern technikák és barátságos környezet. Vágás, festés, balayage és kezelés — nálunk jól érzed magad.</p>
+      <div class="features">
+        <div class="feature">Tapasztalt fodrászok</div>
+        <div class="feature">Online foglalás</div>
+        <div class="feature">Személyre szabott tanácsadás</div>
+      </div>
     </div>
-  </header>
 
-  <main class="container">
-    <section class="hero">
-      <div class="hero-left">
-        <h1>Őszi frizurák, meleg hangulat</h1>
-        <p>Tapasztalt fodrászaink gondoskodnak róla, hogy minden vendégünk kiemelkedően jól érezze magát. Vágás, festés, balayage és kezelések – modern és stílusos környezetben.</p>
-        <div class="features">
-          <div class="feature">Tapasztalt fodrászok</div>
-          <div class="feature">Online foglalás</div>
-          <div class="feature">Személyre szabott tanácsadás</div>
-        </div>
-      </div>
-      <div class="hero-right" id="booking">
-        <h3>Foglalj időpontot</h3>
-        <form id="bookingForm">
-          <select id="serviceSelect" required>
-            <option value="">Válassz szolgáltatást</option>
-            <option value="Vágás">Vágás — 6 000 Ft</option>
-            <option value="Festés">Női festés — 12 000 Ft</option>
-            <option value="Balayage">Balayage — 25 000 Ft</option>
-            <option value="Férfi szegély">Férfi szegély — 2 500 Ft</option>
-          </select>
-          <input type="text" id="name" placeholder="Név" required>
-          <input type="tel" id="phone" placeholder="Telefonszám" required>
-          <input type="email" id="email" placeholder="E-mail" required>
-          <input type="date" id="date" required>
-          <input type="time" id="time" required>
-          <label class="gdpr"><input type="checkbox" id="gdpr" required> Elfogadom az adatkezelést</label>
-          <button type="submit">Foglalás</button>
-          <div id="bookingMsg" class="booking-msg"></div>
-        </form>
-      </div>
-    </section>
+    <aside class="card" id="booking">
+      <h3>Gyors időpontfoglalás</h3>
+      <form id="bookingForm">
+        <select id="serviceSelect" required>
+          <option value="">Válassz szolgáltatást</option>
+          <option value="Vágás">Vágás — 30 perc</option>
+          <option value="Női festés">Női festés — 90 perc</option>
+          <option value="Balayage">Balayage — 120 perc</option>
+          <option value="Férfi szegély">Férfi szegély — 15 perc</option>
+        </select>
+        <input type="text" id="name" placeholder="Név" required>
+        <input type="tel" id="phone" placeholder="Telefonszám" required>
+        <input type="email" id="email" placeholder="E-mail" required>
+        <input type="date" id="date" required>
+        <input type="time" id="time" required>
+        <label><input type="checkbox" id="gdpr" required> Hozzájárulok az adatkezeléshez</label>
+        <button type="submit">Foglalás</button>
+        <div id="bookingMsg" class="muted" style="margin-top:10px;font-size:14px;"></div>
+      </form>
+    </aside>
+  </section>
 
-    <section id="services">
-      <h2>Szolgáltatások</h2>
-      <div class="services">
-        <div class="service">
-          <div>Női vágás</div>
-          <div class="price">6 000 Ft-tól</div>
-        </div>
-        <div class="service">
-          <div>Festés</div>
-          <div class="price">12 000 Ft-tól</div>
-        </div>
-        <div class="service">
-          <div>Balayage</div>
-          <div class="price">25 000 Ft-tól</div>
-        </div>
-      </div>
-    </section>
+  <section id="services">
+    <h2>Szolgáltatások</h2>
+    <div class="services">
+      <div class="card service"><div style="font-weight:700">Női vágás</div><div class="muted">Konzultáció + vágás</div><div class="price">6 000 Ft-tól</div></div>
+      <div class="card service"><div style="font-weight:700">Festés</div><div class="muted">Rövid/közepes/hosszú haj</div><div class="price">12 000 Ft-tól</div></div>
+      <div class="card service"><div style="font-weight:700">Balayage</div><div class="muted">Modern melírozás</div><div class="price">25 000 Ft-tól</div></div>
+    </div>
+  </section>
 
-    <section id="gallery">
-      <h2>Galéria</h2>
-      <div class="gallery">
-        <img src="https://picsum.photos/seed/hair1/400/400" alt="Frizura 1">
-        <img src="https://picsum.photos/seed/hair2/400/400" alt="Frizura 2">
-        <img src="https://picsum.photos/seed/hair3/400/400" alt="Frizura 3">
-        <img src="https://picsum.photos/seed/hair4/400/400" alt="Frizura 4">
-      </div>
-    </section>
+  <section id="gal">
+    <h2>Galéria</h2>
+    <div class="gallery">
+      <img src="https://picsum.photos/seed/hair1/800/800" alt="frizura 1">
+      <img src="https://picsum.photos/seed/hair2/800/800" alt="frizura 2">
+      <img src="https://picsum.photos/seed/hair3/800/800" alt="frizura 3">
+      <img src="https://picsum.photos/seed/hair4/800/800" alt="frizura 4">
+    </div>
+  </section>
 
-    <section id="testimonials">
-      <h2>Vélemények</h2>
-      <div class="testimonials">
-        <div class="testimonial">
-          <div class="author">Anna</div>
-          <div>"Nagyon elégedett vagyok a vágással és a hangulattal!"</div>
-        </div>
-        <div class="testimonial">
-          <div class="author">Miklós</div>
-          <div>"Precíz, gyors és barátságos szolgáltatás."</div>
-        </div>
-      </div>
-    </section>
+  <section id="testi">
+    <h2>Vélemények</h2>
+    <div class="testimonials">
+      <div class="card testi"><div style="font-weight:700">Anna</div><div class="muted">"Szuper vágás, mindig elégedett vagyok."</div></div>
+      <div class="card testi"><div style="font-weight:700">Miklós</div><div class="muted">"Gyors és precíz munkájuk van, ajánlom."</div></div>
+    </div>
+  </section>
 
-    <section id="contact">
-      <h2>Kapcsolat</h2>
-      <div class="contact-grid">
-        <div>
-          <p>Cím: Budapest, Példa utca 12.</p>
-          <p>Telefon: +36 20 123 4567</p>
-          <p>E-mail: kontakt@szalon.hu</p>
-        </div>
-        <form id="contactForm">
-          <input type="text" id="cname" placeholder="Név" required>
-          <input type="email" id="cemail" placeholder="E-mail" required>
-          <textarea id="cmsg" placeholder="Üzenet" rows="4" required></textarea>
-          <label class="gdpr"><input type="checkbox" id="cgdpr" required> Elfogadom az adatkezelést</label>
-          <button type="submit">Küldés</button>
-          <div id="contactMsg" class="booking-msg"></div>
-        </form>
-      </div>
-    </section>
-  </main>
+  <section id="contact">
+    <h2>Kapcsolat</h2>
+    <div class="card">
+      <p class="muted">Cím: Budapest, Példa utca 12.</p>
+      <p class="muted">Telefon: +36 20 123 4567</p>
+      <p class="muted">E-mail: kontakt@szalon.hu</p>
+    </div>
+  </section>
+</main>
 
-  <footer>
-    © <span id="year"></span> Őszi Szalon – Minden jog fenntartva
-  </footer>
+<footer>
+  <div class="muted">© <span id="year"></span> Őszi Szalon – Minden jog fenntartva</div>
+</footer>
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Foglalás űrlap
-    document.getElementById('bookingForm').addEventListener('submit', async function(e){
-      e.preventDefault();
-      const name = document.getElementById('name').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const service = document.getElementById('serviceSelect').value;
-      const date = document.getElementById('date').value;
-      const time = document.getElementById('time').value;
-
-      if(!name||!phone||!email||!service||!date||!time||!document.getElementById('gdpr').checked){
-        document.getElementById('bookingMsg').textContent = 'Kérlek töltsd ki az összes mezőt és fogadd el az adatkezelést.';
-        return;
-      }
-
-      const start = new Date(`${date}T${time}`);
-      const end = new Date(start.getTime() + 60*60000);
-
-      const payload = { name, phone, email, service, price: null, start: start.toISOString(), end: end.toISOString() };
-
-      try {
-        const res = await fetch('/api/booking', {
-          method:'POST',
-          headers:{'Content-Type':'application/json'},
-          body: JSON.stringify(payload)
-        });
-        const data = await res.json();
-        if(res.ok){
-          document.getElementById('bookingMsg').textContent = 'Foglalás sikeresen elküldve!';
-          this.reset();
-        } else {
-          document.getElementById('bookingMsg').textContent = data.error || 'Hiba történt.';
-        }
-      } catch(err){
-        document.getElementById('bookingMsg').textContent = 'Hálózati hiba, próbáld később.';
-      }
-    });
-
-    // Kapcsolat űrlap demo
-    document.getElementById('contactForm').addEventListener('submit', function(e){
-      e.preventDefault();
-      if(!document.getElementById('cgdpr').checked){
-        document.getElementById('contactMsg').textContent = 'Kérlek fogadd el az adatkezelést.';
-        return;
-      }
-      const messages = JSON.parse(localStorage.getItem('messages')||'[]');
-      messages.push({
-        name:document.getElementById('cname').value,
-        email:document.getElementById('cemail').value,
-        msg:document.getElementById('cmsg').value,
-        created:new Date().toISOString()
-      });
-      localStorage.setItem('messages', JSON.stringify(messages));
-      document.getElementById('contactMsg').textContent = 'Üzeneted elküldve (demó). Köszönjük!';
-      this.reset();
-    });
-  </script>
+<script src="booking.js"></script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+function toggleNav(){
+  const nav = document.querySelector('nav ul');
+  nav.style.display = nav.style.display==='flex'?'none':'flex';
+  nav.style.flexDirection='column';
+  nav.style.background='white';
+  nav.style.position='absolute';
+  nav.style.right='24px';
+  nav.style.top='70px';
+  nav.style.padding='12px';
+  nav.style.borderRadius='10px';
+  nav.style.boxShadow='0 10px 30px rgba(0,0,0,0.08)';
+}
+</script>
 </body>
 </html>
