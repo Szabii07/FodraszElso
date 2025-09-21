@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fodrász Foglalás</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+    }
+    header {
+      background-color: #6a4bc4;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .container {
+      max-width: 500px;
+      margin: 30px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #6a4bc4;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      margin-top: 12px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #563aa2;
+    }
+    .msg {
+      margin-top: 10px;
+      font-size: 14px;
+    }
+    .gdpr {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+    }
+    .gdpr input {
+      width: auto;
+      margin-right: 8px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Foglalj időpontot a fodrászhoz</h1>
+  </header>
+
+  <div class="container">
+    <form id="bookingForm">
+      <input type="text" id="name" placeholder="Név" required />
+      <input type="tel" id="phone" placeholder="Telefonszám" required />
+      <input type="email" id="email" placeholder="E-mail cím" required />
+
+      <select id="serviceSelect" required>
+        <option value="">Válassz szolgáltatást</option>
+        <option value="Hajvágás">Hajvágás</option>
+        <option value="Festés">Festés</option>
+        <option value="Szárítás">Szárítás</option>
+      </select>
+
+      <input type="date" id="date" required />
+      <input type="time" id="time" required />
+
+      <div class="gdpr">
+        <input type="checkbox" id="gdpr" required>
+        <label for="gdpr">Elfogadom az adatkezelési tájékoztatót</label>
+      </div>
+
+      <button type="submit">Foglalás elküldése</button>
+      <div class="msg" id="bookingMsg"></div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('bookingForm').addEventListener('submit', async function(e){
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const service = document.getElementById('serviceSelect').value;
+      const date = document.getElementById('date').value;
+      const time = document.getElementById('time').value;
+
+      if(!name||!phone||!email||!service||!date||!time||!document.getElementById('gdpr').checked){
+        document.getElementById('bookingMsg').textContent = 'Kérlek tölts ki minden mezőt és fogadd el az adatkezelést.';
+        return;
+      }
+
+      const start = new Date(`${date}T${time}`);
+      const durationMinutes = 60;
+      const end = new Date(start.getTime() + durationMinutes*60000);
+
+      const payload = {
+        name, phone, email, service,
+        price: null,
+        start: start.toISOString(),
+        end: end.toISOString()
+      };
+
+      try{
+        const res = await fetch('/api/booking', {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if(res.ok){
+          document.getElementById('bookingMsg').textContent = 'Foglalásod sikeresen elküldve — visszaigazolást küldtünk e-mailben.';
+          this.reset();
+        } else {
+          document.getElementById('bookingMsg').textContent = data.error || 'Hiba történt.';
+        }
+      } catch(err){
+        document.getElementById('bookingMsg').textContent = 'Hálózati hiba, próbáld később.';
+      }
+    });
+  </script>
+</body>
+</html>
